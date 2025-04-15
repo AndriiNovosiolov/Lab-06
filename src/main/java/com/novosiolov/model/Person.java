@@ -1,10 +1,13 @@
 package com.novosiolov.model;
 
 import jakarta.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "person")
 public class Person {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -19,6 +22,16 @@ public class Person {
     @JoinColumn(name = "address_id")
     private Address address;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "passport_id")
+    private Passport passport;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "person_project",
+            joinColumns = @JoinColumn(name = "person_id"),
+            inverseJoinColumns = @JoinColumn(name = "project_id"))
+    private Set<Project> projects = new HashSet<>();
+
     public Person() {}
 
     public Person(String name, int age, boolean isMarried, Address address) {
@@ -27,6 +40,8 @@ public class Person {
         this.isMarried = isMarried;
         this.address = address;
     }
+
+    // --- Getters and Setters ---
 
     public int getId() { return id; }
 
@@ -41,5 +56,11 @@ public class Person {
 
     public Address getAddress() { return address; }
     public void setAddress(Address address) { this.address = address; }
+
+    public Passport getPassport() { return passport; }
+    public void setPassport(Passport passport) { this.passport = passport; }
+
+    public Set<Project> getProjects() { return projects; }
+    public void setProjects(Set<Project> projects) { this.projects = projects; }
 }
 

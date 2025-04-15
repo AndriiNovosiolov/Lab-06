@@ -5,22 +5,31 @@
 <hibernate-configuration>
     <session-factory>
 
+        <!-- DB connection settings -->
         <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/java_lab6</property>
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password">admin123</property>
 
+        <!-- JDBC connection pool (built-in) -->
         <property name="connection.pool_size">1</property>
 
+        <!-- SQL dialect -->
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
 
+        <!-- Debugging options -->
         <property name="show_sql">true</property>
         <property name="format_sql">true</property>
 
+        <!-- Auto update schema -->
         <property name="hibernate.hbm2ddl.auto">update</property>
 
-        <mapping class="com.novosiolov.model.Address"/>
+        <!-- Entity mappings -->
         <mapping class="com.novosiolov.model.Person"/>
+        <mapping class="com.novosiolov.model.Address"/>
+        <mapping class="com.novosiolov.model.Passport"/>
+        <mapping class="com.novosiolov.model.Project"/>
 
     </session-factory>
 </hibernate-configuration>
+
